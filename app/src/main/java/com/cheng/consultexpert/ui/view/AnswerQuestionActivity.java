@@ -51,18 +51,19 @@ public class AnswerQuestionActivity extends BaseActivity {
         //add user id
         String id = String.valueOf(mApplication.mUserInfo.getUserId());
         OkHttpUtils.Param userId = new OkHttpUtils.Param("userId", id);
-        paramList.add(userId);
 
         //add subjectid
         OkHttpUtils.Param subjectid = new OkHttpUtils.Param("subjectid", String.valueOf(mSubjectId));
-        paramList.add(subjectid);
 
         //add post parameter question des
         mAnswer = answer_content.getText().toString().trim();
         OkHttpUtils.Param answer = new OkHttpUtils.Param("answerContent", mAnswer);
-        paramList.add(answer);
 
-        OkHttpUtils.Param method = new OkHttpUtils.Param("method", "save");
+        OkHttpUtils.Param method = new OkHttpUtils.Param("method", "saveItem");
+
+        paramList.add(userId);
+        paramList.add(subjectid);
+        paramList.add(answer);
         paramList.add(method);
 
         mSubmit.setOnClickListener(new View.OnClickListener() {

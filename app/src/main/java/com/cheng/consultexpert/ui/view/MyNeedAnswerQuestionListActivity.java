@@ -110,7 +110,7 @@ public class MyNeedAnswerQuestionListActivity extends BaseActivity implements IQ
 
             Gson gson = new Gson();
             String data = gson.toJson(mData.get(position));
-            intent.putExtra("expert", data);
+            intent.putExtra("question", data);
 
             startActivity(intent);
         }

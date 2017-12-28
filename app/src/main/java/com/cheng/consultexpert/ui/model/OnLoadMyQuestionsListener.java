@@ -9,6 +9,6 @@ import java.util.List;
  */
 
 public interface OnLoadMyQuestionsListener {
-    public void onSuccess(List<Subject> subjects);
-    public void onFailed(String msg, Exception e);
+    void onSuccess(List<Subject> subjects);
+    void onFailed(String msg, Exception e);
 }

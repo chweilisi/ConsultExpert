@@ -87,9 +87,9 @@ public class MyNeedAnswerQuestionListActivity extends BaseActivity implements IQ
             super.onScrollStateChanged(recyclerView, newState);
             if (newState == RecyclerView.SCROLL_STATE_IDLE
                     && lastVisibleItem + 1 == mAdapter.getItemCount()) {
-                //需要回答的问题，mQuestionCat 要传-1
+                //需要回答的问题，mQuestionCat:-1，ismine:1，isAnswered:0
                 mPageIndex = mPageIndex + 1;
-                mPresenter.loadQuestionList(mUserId, mQuestionCat, mPageIndex, 1);
+                mPresenter.loadQuestionList(mUserId, mQuestionCat, mPageIndex, 1, 0);
             }
         }
     };
@@ -151,7 +151,7 @@ public class MyNeedAnswerQuestionListActivity extends BaseActivity implements IQ
 //        if(mData != null) {
 //            mData.clear();
 //        }
-        //需要回答的问题，mQuestionCat 要传-1
-        mPresenter.loadQuestionList(mUserId, mQuestionCat, mPageIndex, 1);
+        //需要回答的问题，mQuestionCat:-1，ismine:1，isAnswered:0
+        mPresenter.loadQuestionList(mUserId, mQuestionCat, mPageIndex, 1, 0);
     }
 }

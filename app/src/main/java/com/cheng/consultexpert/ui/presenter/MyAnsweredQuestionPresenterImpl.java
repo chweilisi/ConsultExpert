@@ -5,6 +5,7 @@ import com.cheng.consultexpert.ui.common.Urls;
 import com.cheng.consultexpert.ui.model.MyAnsweredQuestionModel;
 import com.cheng.consultexpert.ui.model.MyAnsweredQuestionModelImpl;
 import com.cheng.consultexpert.ui.model.OnLoadMyQuestionsListener;
+import com.cheng.consultexpert.ui.model.OnLoadQuestionListListener;
 import com.cheng.consultexpert.ui.view.IMyQuestionListView;
 
 import java.util.List;
@@ -23,20 +24,20 @@ public class MyAnsweredQuestionPresenterImpl implements MyAnsweredQuestionPresen
     }
 
     @Override
-    public void loadMyQuestion(int userId, int pageIndex, int isAnswered) {
+    public void loadMyQuestion(int userId, int QuestionCate, int pageIndex, int ismine, int isAnswered) {
         String url = Urls.HOST_TEST + Urls.QUESTION;
 
-        model.loadMyQuestion(userId, url, pageIndex, Urls.PAZE_SIZE, isAnswered, listener);
+        model.loadMyQuestion(userId, url, pageIndex, Urls.PAZE_SIZE, isAnswered, QuestionCate, ismine, listener);
     }
 
-    private OnLoadMyQuestionsListener listener = new OnLoadMyQuestionsListener() {
+    private OnLoadQuestionListListener listener = new OnLoadQuestionListListener() {
         @Override
         public void onSuccess(List<Subject> subjects) {
             questionListView.addData(subjects);
         }
 
         @Override
-        public void onFailed(String msg, Exception e) {
+        public void onFailure(String msg, Exception e) {
 
         }
     };

@@ -71,7 +71,8 @@ public class MyAnsweredQuestionActivity extends BaseActivity implements IMyQuest
                     && lastVisibleItem + 1 == mAdapter.getItemCount()) {
 
                 mPageIndex = mPageIndex + 1;
-                mQuestionPresenter.loadMyQuestion(mUserId, mPageIndex, 1);
+                //回答的问题cateId:-1，ismine:1, isAnswered:1
+                mQuestionPresenter.loadMyQuestion(mUserId, -1, mPageIndex, 1, 1);
             }
         }
     };
@@ -80,7 +81,8 @@ public class MyAnsweredQuestionActivity extends BaseActivity implements IMyQuest
         if(null != mSubjects) {
             mSubjects.clear();
         }
-        mQuestionPresenter.loadMyQuestion(mUserId, mPageIndex, 1);
+        //回答的问题cateId:-1，ismine:1, isAnswered:1
+        mQuestionPresenter.loadMyQuestion(mUserId, -1, mPageIndex, 1, 1);
     }
 
     @Override

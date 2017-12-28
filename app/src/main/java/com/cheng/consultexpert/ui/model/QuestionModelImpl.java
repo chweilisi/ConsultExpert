@@ -33,7 +33,7 @@ public class QuestionModelImpl implements QuestionModel {
         OkHttpUtils.get(url, loadNewsCallback);
     }
     */
-    public void loadQuestionList(String url, int userId, int pageNum, int pageSize, int cateId, int ismine, final OnLoadQuestionListListener listener) {
+    public void loadQuestionList(int userId, String url, int pageNum, int pageSize, int isAnswered, int cateId, int ismine, final OnLoadQuestionListListener listener) {
         OkHttpUtils.ResultCallback<String> loadQuestionCallback = new OkHttpUtils.ResultCallback<String>() {
             @Override
             public void onSuccess(String response) {
@@ -50,18 +50,20 @@ public class QuestionModelImpl implements QuestionModel {
 
         List<OkHttpUtils.Param> params = new ArrayList<>();
         try {
-            OkHttpUtils.Param user = new OkHttpUtils.Param("userId", Integer.toString(userId));
-            OkHttpUtils.Param expertCategory = new OkHttpUtils.Param("cateId", Integer.toString(cateId));
+            OkHttpUtils.Param userid = new OkHttpUtils.Param("userId", Integer.toString(userId));
+            OkHttpUtils.Param cateid = new OkHttpUtils.Param("cateId", Integer.toString(cateId));
             OkHttpUtils.Param pagenum = new OkHttpUtils.Param("pagenum", Integer.toString(pageNum));
             OkHttpUtils.Param pagesize = new OkHttpUtils.Param("pagesize", Integer.toString(pageSize));
             OkHttpUtils.Param ismy = new OkHttpUtils.Param("isMine", String.valueOf(ismine));
+            OkHttpUtils.Param isanswer = new OkHttpUtils.Param("isAnswered", String.valueOf(isAnswered));
             OkHttpUtils.Param mothed = new OkHttpUtils.Param("method","list");
 
-            params.add(user);
-            params.add(expertCategory);
+            params.add(userid);
+            params.add(cateid);
             params.add(pagenum);
             params.add(pagesize);
             params.add(ismy);
+            params.add(isanswer);
             params.add(mothed);
         } catch (Exception e) {
             e.printStackTrace();

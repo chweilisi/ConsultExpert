@@ -88,7 +88,8 @@ public class QuestionListActivity extends BaseActivity implements IQuestionListV
             if (newState == RecyclerView.SCROLL_STATE_IDLE
                     && lastVisibleItem + 1 == mAdapter.getItemCount()) {
                 mPageIndex = mPageIndex + 1;
-                mPresenter.loadQuestionList(mUserId, mQuestionCategory, mPageIndex, 0);
+                //领域问题查询，cateId要传领域，ismine:0，isAnswered:0
+                mPresenter.loadQuestionList(mUserId, mQuestionCategory, mPageIndex, 0, 0);
             }
         }
     };
@@ -121,7 +122,8 @@ public class QuestionListActivity extends BaseActivity implements IQuestionListV
 //        if(mData != null) {
 //            mData.clear();
 //        }
-        mPresenter.loadQuestionList(mUserId, mQuestionCategory, mPageIndex, 0);
+        //领域问题查询，cateId要传领域，ismine:0，isAnswered:0
+        mPresenter.loadQuestionList(mUserId, mQuestionCategory, mPageIndex, 0, 0);
     }
 
     @Override

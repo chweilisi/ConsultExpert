@@ -5,5 +5,5 @@ package com.cheng.consultexpert.ui.model;
  */
 
 public interface MyAnsweredQuestionModel {
-    public void loadMyQuestion(int userId, String url, int pageNum, int pageSize, int isAnswered, OnLoadMyQuestionsListener listener);
+    void loadMyQuestion(int userId, String url, int pageNum, int pageSize, int isAnswered, int cateId, int ismine, OnLoadQuestionListListener listener);
 }

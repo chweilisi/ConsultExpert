@@ -5,6 +5,7 @@ package com.cheng.consultexpert.ui.model;
  */
 
 public interface QuestionModel {
-    void loadQuestionList(String url, int userId, int pageNum, int pageSize, int cateId, int ismine, OnLoadQuestionListListener listener);
+    //void loadQuestionList(String url, int userId, int pageNum, int pageSize, int cateId, int ismine, OnLoadQuestionListListener listener);
+    void loadQuestionList (int userId, String url, int pageNum, int pageSize, int isAnswered, int cateId, int ismine, OnLoadQuestionListListener listener);
 
 }

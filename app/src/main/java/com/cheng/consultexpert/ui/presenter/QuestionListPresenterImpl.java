@@ -25,7 +25,7 @@ public class QuestionListPresenterImpl implements QuestionListPresenter {
 
     //userId必传，QuestionCate如果不是-1则为查询领域问题，如果是-1，则为查询需要回答的问题
     @Override
-    public void loadQuestionList(int userId, int questionCate, int pageIndex, int ismine) {
+    public void loadQuestionList(int userId, int questionCate, int pageIndex, int ismine, int isAnswered) {
         String url = getUrl(questionCate);
 
         //只有第一页的或者刷新的时候才显示刷新进度条
@@ -35,7 +35,7 @@ public class QuestionListPresenterImpl implements QuestionListPresenter {
         //other method to implement
         //mNewsModel.loadNews(url, type, this);
         //replace implement class interface
-        mModel.loadQuestionList(url, userId, pageIndex, Urls.PAZE_SIZE, questionCate, ismine, loadQuestionListener);
+        mModel.loadQuestionList(userId, url, pageIndex, Urls.PAZE_SIZE,isAnswered, questionCate, ismine, loadQuestionListener);
     }
 
     OnLoadQuestionListListener loadQuestionListener = new OnLoadQuestionListListener(){

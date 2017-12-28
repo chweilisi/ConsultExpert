@@ -10,6 +10,5 @@ import java.util.List;
 
 public interface OnLoadQuestionListListener {
     void onSuccess(List<Subject> list);
-
     void onFailure(String msg, Exception e);
 }

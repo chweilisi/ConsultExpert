@@ -5,5 +5,6 @@ package com.cheng.consultexpert.ui.presenter;
  */
 //isAnswered标识是否回答
 public interface MyAnsweredQuestionPresenter {
-    public void loadMyQuestion(int userId, int pageIndex, int isAnswered);
+    //public void loadMyQuestion(int userId, int pageIndex, int isAnswered);
+    public void loadMyQuestion(int userId, int QuestionCate, int pageIndex, int ismine, int isAnswered);
 }

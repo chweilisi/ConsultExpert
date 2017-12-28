@@ -57,9 +57,16 @@ public class QuestionDetailActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(QuestionDetailActivity.this, AnswerQuestionActivity.class);
                 intent.putExtra("subjectId", subjectId);
-                startActivity(intent);
+                startActivityForResult(intent, 10);
+                //startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        this.finish();
     }
 
 }

@@ -1,6 +1,7 @@
 package com.cheng.consultexpert.ui.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -75,6 +76,11 @@ public class AnswerQuestionActivity extends BaseActivity {
                 paramList.add(method);
 
                 OkHttpUtils.post(url, null, paramList);
+//                Intent intent = new Intent();
+//                intent.setClass(mContext, QuestionDetailActivity.class);
+//                intent.putExtra("resultCode", "submit");
+//                AnswerQuestionActivity.this.setResult(RESULT_OK, intent);
+                AnswerQuestionActivity.this.setResult(100);
                 //finish self
                 finish();
             }

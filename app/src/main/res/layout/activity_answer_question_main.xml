@@ -25,7 +25,7 @@
             android:id="@+id/answer_content"
             android:textSize="20sp"
             android:scrollbars="vertical"
-            android:hint="问题答复内容……"
+            android:hint="问题答复内容，最多输入300字"
             android:background="@drawable/search_white_corner_shape"/>
 
         <Button

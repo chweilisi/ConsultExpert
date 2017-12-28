@@ -40,7 +40,7 @@
     <string name="defult_user_name">用户名</string>
     <string name="myfragment_my_expert_tip">我关注的专家</string>
     <string name="myfragment_my_user_tip">我关注的企业</string>
-    <string name="myfragment_my_love_question_tip">我关注的问题</string>
+    <string name="myfragment_my_love_question_tip">我的待回答问题</string>
     <string name="myfragment_my_profile_tip">我的资料</string>
     <string name="myfragment_my_question_tip">我的问题</string>
     <string name="myfragment_my_answer_tip">我回答的问题</string>

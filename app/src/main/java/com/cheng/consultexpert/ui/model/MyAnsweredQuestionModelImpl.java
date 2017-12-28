@@ -32,7 +32,8 @@ public class MyAnsweredQuestionModelImpl implements MyAnsweredQuestionModel {
 
         List<OkHttpUtils.Param> params = new ArrayList<>();
         try {
-            OkHttpUtils.Param userid = new OkHttpUtils.Param("userId", String.valueOf(userId));
+            OkHttpUtils.Param expertid = new OkHttpUtils.Param("expertId", String.valueOf(userId));
+            OkHttpUtils.Param userid = new OkHttpUtils.Param("userId", "-1");
             OkHttpUtils.Param pagenum = new OkHttpUtils.Param("pagenum", Integer.toString(pageNum));
             OkHttpUtils.Param pagesize = new OkHttpUtils.Param("pagesize", Integer.toString(pageSize));
             OkHttpUtils.Param answered = new OkHttpUtils.Param("isAnswered", String.valueOf(isAnswered));
@@ -40,6 +41,7 @@ public class MyAnsweredQuestionModelImpl implements MyAnsweredQuestionModel {
             OkHttpUtils.Param ismy = new OkHttpUtils.Param("isMine", String.valueOf(ismine));
             OkHttpUtils.Param mothed = new OkHttpUtils.Param("method","list");
 
+            params.add(expertid);
             params.add(userid);
             params.add(pagenum);
             params.add(pagesize);

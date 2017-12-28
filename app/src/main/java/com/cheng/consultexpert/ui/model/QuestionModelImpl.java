@@ -50,7 +50,8 @@ public class QuestionModelImpl implements QuestionModel {
 
         List<OkHttpUtils.Param> params = new ArrayList<>();
         try {
-            OkHttpUtils.Param userid = new OkHttpUtils.Param("userId", Integer.toString(userId));
+            OkHttpUtils.Param expertid = new OkHttpUtils.Param("expertId", Integer.toString(userId));
+            OkHttpUtils.Param userid = new OkHttpUtils.Param("userId", "-1");
             OkHttpUtils.Param cateid = new OkHttpUtils.Param("cateId", Integer.toString(cateId));
             OkHttpUtils.Param pagenum = new OkHttpUtils.Param("pagenum", Integer.toString(pageNum));
             OkHttpUtils.Param pagesize = new OkHttpUtils.Param("pagesize", Integer.toString(pageSize));
@@ -58,6 +59,7 @@ public class QuestionModelImpl implements QuestionModel {
             OkHttpUtils.Param isanswer = new OkHttpUtils.Param("isAnswered", String.valueOf(isAnswered));
             OkHttpUtils.Param mothed = new OkHttpUtils.Param("method","list");
 
+            params.add(expertid);
             params.add(userid);
             params.add(cateid);
             params.add(pagenum);

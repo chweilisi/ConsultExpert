@@ -45,32 +45,35 @@ public class AnswerQuestionActivity extends BaseActivity {
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
             }
         });
-        mSubmit = (Button)findViewById(R.id.submit);
+        mSubmit = (Button)findViewById(R.id.submit_answer);
 
-        paramList = new ArrayList<>();
-        //add user id
-        String id = String.valueOf(mApplication.mUserInfo.getUserId());
-        OkHttpUtils.Param userId = new OkHttpUtils.Param("userId", id);
 
-        //add subjectid
-        OkHttpUtils.Param subjectid = new OkHttpUtils.Param("subjectid", String.valueOf(mSubjectId));
-
-        //add post parameter question des
-        mAnswer = answer_content.getText().toString().trim();
-        OkHttpUtils.Param answer = new OkHttpUtils.Param("answerContent", mAnswer);
-
-        OkHttpUtils.Param method = new OkHttpUtils.Param("method", "saveItem");
-
-        paramList.add(userId);
-        paramList.add(subjectid);
-        paramList.add(answer);
-        paramList.add(method);
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO submit question
                 String url = Urls.HOST_TEST + Urls.QUESTION;
+
+                paramList = new ArrayList<>();
+                //add user id
+                String id = String.valueOf(mApplication.mUserInfo.getUserId());
+                OkHttpUtils.Param userId = new OkHttpUtils.Param("userId", id);
+
+                //add subjectid
+                OkHttpUtils.Param subjectid = new OkHttpUtils.Param("subjectid", String.valueOf(mSubjectId));
+
+                //add post parameter question des
+                mAnswer = answer_content.getText().toString().trim();
+                OkHttpUtils.Param answer = new OkHttpUtils.Param("answerContent", mAnswer);
+
+                OkHttpUtils.Param method = new OkHttpUtils.Param("method", "saveItem");
+
+                paramList.add(userId);
+                paramList.add(subjectid);
+                paramList.add(answer);
+                paramList.add(method);
+
                 OkHttpUtils.post(url, null, paramList);
                 //finish self
                 finish();

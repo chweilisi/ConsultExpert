@@ -37,7 +37,7 @@
             android:layout_marginTop="15dp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/home_page_consult_button"
-            android:id="@+id/submit"/>
+            android:id="@+id/submit_answer"/>
     </LinearLayout>
 
 

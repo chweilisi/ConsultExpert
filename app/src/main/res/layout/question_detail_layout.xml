@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_margin="10dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_margin="10dp"
         android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
@@ -49,22 +49,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_margin="10dp"
         android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#AFAFAF"
-            android:layout_marginTop="20dp"
             android:textSize="20sp"
             android:text="问题描述："/>
-        <TextView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="260dp"
-            android:id="@+id/question_des"
-            android:textSize="20sp"
             android:scrollbars="vertical"
-            android:background="@drawable/search_white_corner_shape"/>
+            android:fadingEdge="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/question_des"
+                android:textSize="20sp"
+                android:scrollbars="vertical"
+                android:background="@drawable/search_white_corner_shape"/>
+        </ScrollView>
+
     </LinearLayout>
 
     <Button

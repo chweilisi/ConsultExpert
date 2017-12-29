@@ -1,5 +1,6 @@
 package com.cheng.consultexpert.ui.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,6 +33,7 @@ public class MyQuestionDetailActivity extends BaseActivity {
     private TextView mSubjectDes;
     private ListView mListView;
     private AnswerAdapter mLvAdapter;
+    private Button mBtnAnswer;
 
     @Override
     protected int getContentViewLayoutId() {
@@ -42,6 +45,8 @@ public class MyQuestionDetailActivity extends BaseActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recycle_view);
         mSubjectTitle = (TextView)findViewById(R.id.tvTitle);
         mSubjectDes = (TextView)findViewById(R.id.tvDesc);
+
+
         //mListView = (ListView)findViewById(R.id.list_view);
 
         //获取activity传递数据
@@ -72,6 +77,19 @@ public class MyQuestionDetailActivity extends BaseActivity {
             mRecyclerView.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
         }
+        //set footerview
+        View footer = LayoutInflater.from(mContext).inflate(R.layout.my_question_detail_foot_answer_button, mRecyclerView, false);
+        mBtnAnswer = (Button)footer.findViewById(R.id.question_detail_btn_answer);
+        mAdapter.setFooterView(footer);
+        mAdapter.setHeaderView(null);
+        mBtnAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyQuestionDetailActivity.this, AnswerQuestionActivity.class);
+                intent.putExtra("subjectId", mSubject.getSubjectId());
+                startActivityForResult(intent, 10);
+            }
+        });
     }
 
     private class AnswerAdapter extends BaseAdapter{

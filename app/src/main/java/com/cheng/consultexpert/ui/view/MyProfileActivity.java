@@ -156,14 +156,17 @@ public class MyProfileActivity extends BaseActivity implements View.OnTouchListe
     //TODO: restore spinner state
     private void restoreGoodat(){
         String strGood = mPreUtils.getUserGoodat();
-        String[] strArrGood = strGood.split(",");
-        List<String> goodatList = new ArrayList<String>(Arrays.asList(strArrGood));
+        if(null != strGood && !strGood.isEmpty()){
+            String[] strArrGood = strGood.split(",");
+            List<String> goodatList = new ArrayList<String>(Arrays.asList(strArrGood));
 
-        Set<Object> checkedSet = new HashSet<>();
-        for(int i = 0; i < goodatList.size(); i++){
-            checkedSet.add(Integer.parseInt(goodatList.get(i)));
+            Set<Object> checkedSet = new HashSet<>();
+            for(int i = 0; i < goodatList.size(); i++){
+                checkedSet.add(Integer.parseInt(goodatList.get(i)));
+            }
+            mMyGoodatSpinner.setCheckedSet(checkedSet);
         }
-        mMyGoodatSpinner.setCheckedSet(checkedSet);
+
     }
 
     private void addParams(){

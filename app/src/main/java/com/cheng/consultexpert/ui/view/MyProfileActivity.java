@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cheng.consultexpert.R;
+import com.cheng.consultexpert.ui.common.Urls;
 import com.cheng.consultexpert.utils.OkHttpUtils;
 import com.cheng.consultexpert.utils.PreUtils;
 import com.cheng.consultexpert.widget.MultiSpinner;
@@ -102,7 +103,8 @@ public class MyProfileActivity extends BaseActivity implements View.OnTouchListe
                 } else {
                     addParams();
                     saveUserProfile();
-                    //OkHttpUtils.post("http://101.200.40.228:8080/public/api/case", null, mPostParams);
+
+                    OkHttpUtils.post(Urls.HOST_TEST + Urls.EXPERT, null, mPostParams);
                     finish();
                 }
             }
@@ -113,8 +115,6 @@ public class MyProfileActivity extends BaseActivity implements View.OnTouchListe
     private void initMyGoodat(){
         mGoodatItems = getResources().getStringArray(R.array.consult_category);
         mMyGoodat = new ArrayList<String>(Arrays.asList(mGoodatItems));
-
-
 
         mMyGoodatSpinner.setTitle("请选择领域");
         ArrayList multiSpinnerList=new ArrayList();
@@ -202,6 +202,8 @@ public class MyProfileActivity extends BaseActivity implements View.OnTouchListe
         //user description
         OkHttpUtils.Param param8 = new OkHttpUtils.Param("userdes", mUserDes.getText().toString().trim());
         mPostParams.add(param8);
+        OkHttpUtils.Param param9 = new OkHttpUtils.Param("method", "save");
+        mPostParams.add(param9);
 
     }
 

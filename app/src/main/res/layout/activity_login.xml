@@ -140,6 +140,16 @@
         android:textColor="@android:color/white"
         android:textSize="16sp" />
 
+    <TextView
+        android:id="@+id/tv_regist_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/regist_user"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/sn_16sp"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

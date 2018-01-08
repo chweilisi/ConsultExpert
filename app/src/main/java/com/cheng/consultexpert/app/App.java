@@ -26,6 +26,7 @@ public class App extends MultiDexApplication {
     private static int mHeight;
     public static PreUtils mUserInfo;
     public static int mUserId;
+    public static String mAppSignature = "wisegoo";
     /**
      * 主线程ID
      */

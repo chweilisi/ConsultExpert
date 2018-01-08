@@ -223,6 +223,13 @@ public class PreUtils {
         return mPre.getString("userpsw", "");
     }
 
+    public void setUserLoginId(String id){
+        mPre.edit().putString("userloginid", id).commit();
+    }
+    public String getUserLoginId(){
+        return mPre.getString("userloginid", "-1");
+    }
+
     public void setUserIsLogin(int login){
         mPre.edit().putInt("islogined", login).commit();
     }

@@ -156,6 +156,27 @@ public class PreUtils {
         return mPre.getString("username", "");
     }
 
+    public void setUserSex(String name){
+        mPre.edit().putString("sex", name).commit();
+    }
+    public String getUserSex(){
+        return mPre.getString("sex", "");
+    }
+
+    public void setUserQq(String name){
+        mPre.edit().putString("qq", name).commit();
+    }
+    public String getUserQq(){
+        return mPre.getString("qq", "");
+    }
+
+    public void setUserWeixin(String name){
+        mPre.edit().putString("weixin", name).commit();
+    }
+    public String getUserWeixin(){
+        return mPre.getString("weixin", "");
+    }
+
     public void setUserPhone(String num){
         mPre.edit().putString("phonenum", num).commit();
     }
@@ -242,6 +263,13 @@ public class PreUtils {
     }
     public String getUserType(){
         return mPre.getString("usertype", "");
+    }
+
+    public void setStatus(int login){
+        mPre.edit().putInt("status", login).commit();
+    }
+    public String getStatus(){
+        return mPre.getString("status", "200");
     }
 
     public void clearUserInfo(){

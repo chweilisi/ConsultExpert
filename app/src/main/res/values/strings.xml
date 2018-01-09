@@ -80,6 +80,7 @@
     <string name="home_page_quick_ask">"快速问诊"</string>
 
     <string name="my_profile_error_toast">"请填写完整"</string>
+    <string name="my_profile_no_submit_toast">"不能修改认证信息，请联系系统管理员"</string>
     <string name="my_question_cate_error_toast">"请选择问题领域"</string>
     <string name="my_question_des_error_toast">"请填写问题内容"</string>
     <string name="my_question_title_error_toast">"请填写问题标题"</string>

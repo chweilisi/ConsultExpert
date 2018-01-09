@@ -4,19 +4,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.cheng.consultexpert.R;
+import com.cheng.consultexpert.ui.common.Constants;
 import com.cheng.consultexpert.ui.common.PostCommonHead;
+import com.cheng.consultexpert.ui.common.PostResponseBodyJson;
+import com.cheng.consultexpert.ui.common.Urls;
 import com.cheng.consultexpert.ui.view.LoginActivity;
 import com.cheng.consultexpert.ui.view.MyAnsweredQuestionActivity;
 import com.cheng.consultexpert.ui.view.MyProfileActivity;
 import com.cheng.consultexpert.utils.OkHttpUtils;
 import com.cheng.consultexpert.utils.PreUtils;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -87,12 +94,39 @@ public class InfoFragment extends Fragment {
                 OkHttpUtils.ResultCallback<String> myProfileResultCallback = new OkHttpUtils.ResultCallback<String>() {
                     @Override
                     public void onSuccess(String response) {
-
+                        if(!response.isEmpty() && null != response){
+                            Gson gson=  new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
+                            PostResponseBodyJson result = gson.fromJson(response, PostResponseBodyJson.class);
+                            if(null != result){
+                                boolean issuccessed = result.getResultCode().equalsIgnoreCase(Constants.LOGIN_OR_POST_SUCCESS);
+                                if(issuccessed){
+                                    Intent intent = new Intent(getActivity(), MyProfileActivity.class);
+                                    if(!result.getResultJson().trim().isEmpty() && null != result.getResultJson().trim()){
+                                        String myProfile = result.getResultJson();
+                                        //Intent intent = new Intent(getActivity(), MyProfileActivity.class);
+                                        intent.putExtra("myProfile", myProfile);
+                                        //startActivity(intent);
+                                    }
+                                    startActivity(intent);
+                                }else if (result.getResultCode().trim().equalsIgnoreCase(Constants.SYSTEM_ERROR_PROGRAM)){
+                                    Toast toast = Toast.makeText(getActivity(), "ErrorCode = "+ result.getResultCode() + " "
+                                            + getResources().getString(R.string.login_hint_app_error) + " " + result.getResultMess(), Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER, 0, 0);
+                                    toast.show();
+                                }else if (result.getResultCode().trim().equalsIgnoreCase(Constants.SYSTEM_ERROR_SERVER)){
+                                    Toast toast = Toast.makeText(getActivity(), "ErrorCode = "+ result.getResultCode() + " "
+                                            + getResources().getString(R.string.login_hint_server_error) + " " + result.getResultMess(), Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER, 0, 0);
+                                    toast.show();
+                                }
+                            }
+                        }
                     }
 
                     @Override
                     public void onFailure(Exception e) {
-
+                        String serverMessage = e.getMessage();
+                        Toast.makeText(getActivity(), serverMessage + " " + getResources().getText(R.string.login_hint_net_error), Toast.LENGTH_LONG).show();
                     }
                 };
 
@@ -101,8 +135,11 @@ public class InfoFragment extends Fragment {
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String dateStr = dateFormat.format(date).toString();
 
-
-
+                String url = Urls.HOST_TEST + Urls.LOGIN;
+                PostCommonHead.HEAD beanHead = new PostCommonHead.HEAD("1", "getExpert", "wisegoo", dateStr, "9000");
+                ProfilePostBean bean = new ProfilePostBean(beanHead, pre.getUserLoginId(), String.valueOf(pre.getUserId()));
+                String postParamJsonStr = new Gson().toJson(bean);
+                OkHttpUtils.postJson(url, myProfileResultCallback, postParamJsonStr);
 
 
                 Intent intent = new Intent(getActivity(), MyProfileActivity.class);

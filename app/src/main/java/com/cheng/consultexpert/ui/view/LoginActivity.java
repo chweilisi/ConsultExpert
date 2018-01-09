@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.cheng.consultexpert.MainActivity;
 import com.cheng.consultexpert.R;
 import com.cheng.consultexpert.db.table.User;
+import com.cheng.consultexpert.ui.common.Constants;
 import com.cheng.consultexpert.ui.common.PostCommonHead;
 import com.cheng.consultexpert.ui.common.PostResponseBodyJson;
 import com.cheng.consultexpert.ui.common.Urls;
@@ -129,12 +130,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
                 if(null != response && !response.isEmpty()){
                     result = gson.fromJson(response, PostResponseBodyJson.class);
-                    if((result.getResultCode().trim().equalsIgnoreCase("200") && null != result.getResultJson()) && (!result.getResultJson().isEmpty())){
+                    if((result.getResultCode().trim().equalsIgnoreCase(Constants.LOGIN_OR_POST_SUCCESS) && null != result.getResultJson()) && (!result.getResultJson().isEmpty())){
                         loginStatus = gson.fromJson(result.getResultJson(), LoginResultJsonBean.class);
 
                         userType = loginStatus.getUserType();
-                        isLoginSuccess = result.getResultCode().trim().equalsIgnoreCase("200") ? true : false;
-                        if(200 != Integer.parseInt(userType) || !isLoginSuccess) {
+                        //isLoginSuccess = result.getResultCode().trim().equalsIgnoreCase(Constants.LOGIN_OR_POST_SUCCESS) ? true : false;
+                        if(Constants.USER_TYPE_EXPERT != Integer.parseInt(userType)/* || !isLoginSuccess*/) {
                             Toast toast = Toast.makeText(mContext, mContext.getResources().getText(R.string.login_hint_error_user), Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
@@ -157,11 +158,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             startActivity(intent);
                             finish();
                         }
-                    } else if (result.getResultCode().trim().equalsIgnoreCase("100")){
+                    } else if (result.getResultCode().trim().equalsIgnoreCase(Constants.SYSTEM_ERROR_PROGRAM)){
                         Toast toast = Toast.makeText(mContext, "ErrorCode = "+ result.getResultCode() + " " + result.getResultMess(), Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
-                    }else if (result.getResultCode().trim().equalsIgnoreCase("500")){
+                    }else if (result.getResultCode().trim().equalsIgnoreCase(Constants.SYSTEM_ERROR_SERVER)){
                         Toast toast = Toast.makeText(mContext, "ErrorCode = "+ result.getResultCode() + " " + result.getResultMess(), Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();

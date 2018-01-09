@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.cheng.consultexpert.MainActivity;
 import com.cheng.consultexpert.R;
+import com.cheng.consultexpert.ui.common.Constants;
 import com.cheng.consultexpert.ui.common.PostCommonHead;
 import com.cheng.consultexpert.ui.common.PostResponseBodyJson;
 import com.cheng.consultexpert.ui.common.Urls;
@@ -87,8 +88,8 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                         registResult = gson.fromJson(status, registResultBean.class);
 
                         userType = registResult.getUserType();
-                        isLoginSuccess = result.getResultCode().equalsIgnoreCase("200") ? true : false;
-                        if(200 == Integer.parseInt(userType) && isLoginSuccess) {
+                        isLoginSuccess = result.getResultCode().equalsIgnoreCase(Constants.LOGIN_OR_POST_SUCCESS) ? true : false;
+                        if(Constants.USER_TYPE_EXPERT == Integer.parseInt(userType) && isLoginSuccess) {
                             //save regist user info to local
                             pre.setUserLoginName(registResult.getLoginName());
                             pre.setUserLoginPsw(registResult.getLoginPsw());
@@ -102,11 +103,11 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                             startActivity(intent);
                             finish();
                         }
-                    }else if (result.getResultCode().trim().equalsIgnoreCase("100")){
+                    }else if (result.getResultCode().trim().equalsIgnoreCase(Constants.SYSTEM_ERROR_PROGRAM)){
                         Toast toast = Toast.makeText(mContext, "ErrorCode = "+ result.getResultCode() + " " + result.getResultMess(), Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
-                    }else if (result.getResultCode().trim().equalsIgnoreCase("500")){
+                    }else if (result.getResultCode().trim().equalsIgnoreCase(Constants.SYSTEM_ERROR_SERVER)){
                         Toast toast = Toast.makeText(mContext, "ErrorCode = "+ result.getResultCode() + " " + result.getResultMess(), Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();

@@ -35,10 +35,13 @@
       <file leaf-file-name="LoginActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cheng/consultexpert/ui/view/LoginActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="160" column="20" lean-forward="true" selection-start-line="160" selection-start-column="20" selection-end-line="160" selection-end-column="20" />
+            <state relative-caret-position="412">
+              <caret line="172" column="25" lean-forward="false" selection-start-line="172" selection-start-column="25" selection-end-line="172" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#5046#5109#0" expanded="true" />
+                <element signature="e#6844#6899#0" expanded="true" />
+                <element signature="e#7327#7385#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -47,9 +50,12 @@
       <file leaf-file-name="InfoFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cheng/consultexpert/ui/fragment/InfoFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="51" column="25" lean-forward="false" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="25" />
-              <folding />
+            <state relative-caret-position="174">
+              <caret line="114" column="26" lean-forward="true" selection-start-line="114" selection-start-column="26" selection-end-line="114" selection-end-column="26" />
+              <folding>
+                <element signature="e#3312#4146#0" expanded="true" />
+                <element signature="e#4145#4146#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -57,37 +63,15 @@
       <file leaf-file-name="RegistActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cheng/consultexpert/ui/view/RegistActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="109" column="106" lean-forward="false" selection-start-line="109" selection-start-column="106" selection-end-line="109" selection-end-column="106" />
+            <state relative-caret-position="240">
+              <caret line="105" column="21" lean-forward="true" selection-start-line="105" selection-start-column="21" selection-end-line="115" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2120#2151#0" expanded="true" />
                 <element signature="e#2272#2302#0" expanded="true" />
-                <element signature="e#5181#5234#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cheng/consultexpert/ui/common/Constants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="11" selection-end-column="61" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OkHttpUtils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cheng/consultexpert/utils/OkHttpUtils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2205">
-              <caret line="147" column="0" lean-forward="false" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#3263#3264#0" expanded="true" />
-                <element signature="e#3324#3325#0" expanded="true" />
+                <element signature="e#4532#4587#0" expanded="true" />
+                <element signature="e#4995#5053#0" expanded="true" />
+                <element signature="e#5376#5429#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1946,7 +1930,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/question_detail_layout.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/cheng/consultexpert/ui/model/MyAnsweredQuestionModelImpl.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/cheng/consultexpert/ui/model/QuestionModelImpl.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_answer_question_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/question_answer_item.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/my_question_detail_foot_answer_button.xml" />
@@ -1961,7 +1944,9 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/cheng/consultexpert/utils/OkHttpUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_regist.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/cheng/consultexpert/ui/common/Constants.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/cheng/consultexpert/ui/fragment/InfoFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/cheng/consultexpert/ui/view/RegistActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/cheng/consultexpert/ui/view/LoginActivity.java" />
       </list>
     </option>
@@ -2059,6 +2044,24 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="Gradle Scripts" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidBuildScriptsGroupNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ConsultExpert" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="values" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2436,7 +2439,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1515464575710" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1515465873582" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2484,7 +2487,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1515464575710" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1515465873583" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2646,7 +2649,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1515464575711" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1515465873584" />
       </method>
     </configuration>
     <list size="1">
@@ -2729,13 +2732,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/cheng/consultexpert/ui/view/LoginActivity.java</url>
-          <line>129</line>
+          <line>128</line>
           <properties />
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/cheng/consultexpert/ui/view/LoginActivity.java</url>
-          <line>208</line>
+          <line>213</line>
           <properties />
           <option name="timeStamp" value="29" />
         </line-breakpoint>
@@ -2753,7 +2756,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/cheng/consultexpert/ui/view/RegistActivity.java</url>
-          <line>133</line>
+          <line>135</line>
           <properties />
           <option name="timeStamp" value="36" />
         </line-breakpoint>
@@ -2763,13 +2766,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cheng/consultexpert/ui/view/AnswerQuestionActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="28" column="34" lean-forward="false" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_my_question_detail.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -2905,13 +2901,6 @@
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="42" column="58" lean-forward="false" selection-start-line="42" selection-start-column="58" selection-end-line="42" selection-end-column="58" />
         </state>
       </provider>
     </entry>
@@ -3059,6 +3048,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="117">
           <caret line="106" column="0" lean-forward="false" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3138,6 +3128,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="13" column="24" lean-forward="false" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3151,31 +3142,55 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cheng/consultexpert/ui/fragment/InfoFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="51" column="25" lean-forward="false" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="25" />
+        <state relative-caret-position="174">
+          <caret line="114" column="26" lean-forward="true" selection-start-line="114" selection-start-column="26" selection-end-line="114" selection-end-column="26" />
+          <folding>
+            <element signature="e#3312#4146#0" expanded="true" />
+            <element signature="e#4145#4146#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/r/debug/com/cheng/consultexpert/R.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="3751" column="28" lean-forward="false" selection-start-line="3751" selection-start-column="28" selection-end-line="3751" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="88" column="46" lean-forward="false" selection-start-line="88" selection-start-column="46" selection-end-line="88" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cheng/consultexpert/ui/view/RegistActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="109" column="106" lean-forward="false" selection-start-line="109" selection-start-column="106" selection-end-line="109" selection-end-column="106" />
+        <state relative-caret-position="240">
+          <caret line="105" column="21" lean-forward="true" selection-start-line="105" selection-start-column="21" selection-end-line="115" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2120#2151#0" expanded="true" />
             <element signature="e#2272#2302#0" expanded="true" />
-            <element signature="e#5181#5234#0" expanded="true" />
+            <element signature="e#4532#4587#0" expanded="true" />
+            <element signature="e#4995#5053#0" expanded="true" />
+            <element signature="e#5376#5429#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cheng/consultexpert/ui/view/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="160" column="20" lean-forward="true" selection-start-line="160" selection-start-column="20" selection-end-line="160" selection-end-column="20" />
+        <state relative-caret-position="412">
+          <caret line="172" column="25" lean-forward="false" selection-start-line="172" selection-start-column="25" selection-end-line="172" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#5046#5109#0" expanded="true" />
+            <element signature="e#6844#6899#0" expanded="true" />
+            <element signature="e#7327#7385#0" expanded="true" />
           </folding>
         </state>
       </provider>

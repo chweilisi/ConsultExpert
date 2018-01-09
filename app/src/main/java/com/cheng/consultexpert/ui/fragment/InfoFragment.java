@@ -11,10 +11,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.cheng.consultexpert.R;
+import com.cheng.consultexpert.ui.common.PostCommonHead;
 import com.cheng.consultexpert.ui.view.LoginActivity;
 import com.cheng.consultexpert.ui.view.MyAnsweredQuestionActivity;
 import com.cheng.consultexpert.ui.view.MyProfileActivity;
+import com.cheng.consultexpert.utils.OkHttpUtils;
 import com.cheng.consultexpert.utils.PreUtils;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static com.cheng.consultexpert.app.App.mApp;
 
@@ -78,11 +84,52 @@ public class InfoFragment extends Fragment {
         mMyProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                OkHttpUtils.ResultCallback<String> myProfileResultCallback = new OkHttpUtils.ResultCallback<String>() {
+                    @Override
+                    public void onSuccess(String response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+
+                    }
+                };
+
+                //json格式post参数
+                Date date = new Date();
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String dateStr = dateFormat.format(date).toString();
+
+
+
+
+
                 Intent intent = new Intent(getActivity(), MyProfileActivity.class);
                 startActivity(intent);
             }
         });
         return view;
+    }
+
+    class ProfilePostBean{
+        private PostCommonHead.HEAD head;
+        private ProfileBody body;
+        public ProfilePostBean(PostCommonHead.HEAD head, String loginId, String userId) {
+            this.head = head;
+            this.body = new ProfileBody(loginId, userId);
+        }
+
+        class ProfileBody{
+            private String loginId;//登录id
+            private String userId;//专家id
+
+            public ProfileBody(String loginId, String userId) {
+                this.loginId = loginId;
+                this.userId = userId;
+            }
+
+        }
     }
 
 }

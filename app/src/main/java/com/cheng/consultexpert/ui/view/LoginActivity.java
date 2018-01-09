@@ -134,7 +134,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             if(!result.getResultJson().trim().isEmpty() && null != result.getResultJson().trim()){
                                 loginStatus = gson.fromJson(result.getResultJson(), LoginResultJsonBean.class);
                                 userType = loginStatus.getUserType();
-                                if(Constants.USER_TYPE_COMPANY != Integer.parseInt(userType)){
+                                if(Constants.USER_TYPE_EXPERT != Integer.parseInt(userType)){
                                     Toast toast = Toast.makeText(mContext, mContext.getResources().getText(R.string.login_hint_error_user), Toast.LENGTH_SHORT);
                                     toast.setGravity(Gravity.CENTER, 0, 0);
                                     toast.show();
@@ -159,7 +159,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                 }
 
                             }
-
                         } else if (result.getResultCode().trim().equalsIgnoreCase(Constants.SYSTEM_ERROR_PROGRAM)){
                             Toast toast = Toast.makeText(mContext, "ErrorCode = "+ result.getResultCode() + " "
                                     + getResources().getString(R.string.login_hint_app_error) + " " + result.getResultMess(), Toast.LENGTH_SHORT);

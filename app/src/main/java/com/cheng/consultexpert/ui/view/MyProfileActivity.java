@@ -47,7 +47,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnTouchListe
     private RadioGroup mSexGroup;
     private RadioButton mMale;
     private RadioButton mFemale;
-    private String mSex;
+    private String mSex = "0";
     private EditText mPhoneNum;
     private EditText mQq;
     private EditText mWeixin;
@@ -76,18 +76,23 @@ public class MyProfileActivity extends BaseActivity implements View.OnTouchListe
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        mPreUtils = PreUtils.getInstance(mContext);
         mMyProfile = getIntent().getStringExtra("myProfile");
         Gson gson=  new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
         mMyProfileBean = gson.fromJson(mMyProfile, MyProfileBean.class);
 
+        //认证后的userId是有意义的值，再次更新userId
+        if(!mMyProfileBean.getUserId().trim().isEmpty() && !mMyProfileBean.getUserId().trim().equalsIgnoreCase("-1")){
+            mApplication.mUserId = Integer.parseInt(mMyProfileBean.getUserId());
+            mPreUtils.setUserId(Long.parseLong(mMyProfileBean.getUserId()));
+        }
+
+        mSex = mMyProfileBean.getSex();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(getResources().getString(R.string.myfragment_my_profile_tip));
 
-        mPreUtils = PreUtils.getInstance(mContext);
-
         //addEditTextIdToList();
-
 
         mExpertName = (EditText) findViewById(R.id.expert_name);
 
@@ -116,7 +121,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnTouchListe
         mSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mMyProfileBean.getStatus().trim().equalsIgnoreCase("200")){
+//                if(!mMyProfileBean.getStatus().trim().equalsIgnoreCase("200")){
                     if(!isProfileDone()){
                         Toast toast = Toast.makeText(mContext, mContext.getResources().getText(R.string.my_profile_error_toast), Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
@@ -157,11 +162,11 @@ public class MyProfileActivity extends BaseActivity implements View.OnTouchListe
                         //OkHttpUtils.post(Urls.HOST_TEST + Urls.EXPERT, null, mPostParams);
                         finish();
                     }
-                }else {
-                    Toast toast = Toast.makeText(mContext, mContext.getResources().getText(R.string.my_profile_no_submit_toast), Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-                }
+//                }else {
+//                    Toast toast = Toast.makeText(mContext, mContext.getResources().getText(R.string.my_profile_no_submit_toast), Toast.LENGTH_SHORT);
+//                    toast.setGravity(Gravity.CENTER, 0, 0);
+//                    toast.show();
+//                }
 
             }
         });
@@ -231,9 +236,11 @@ public class MyProfileActivity extends BaseActivity implements View.OnTouchListe
             if(sex.trim().equalsIgnoreCase("0")){
                 mMale.setChecked(true);
                 mFemale.setChecked(false);
+                mSex = "0";
             }else {
                 mMale.setChecked(false);
                 mFemale.setChecked(true);
+                mSex = "1";
             }
 
             mPhoneNum.setText(profile.getPhoneNum());
@@ -241,6 +248,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnTouchListe
             mWeixin.setText(profile.getWeixin());
             mAge.setText(profile.getAge());
             mArea.setText(profile.getArea());
+            mWorkTime.setText(profile.getExpertTime());
 
             //goodat field
             String good = profile.getGoodField();
@@ -396,6 +404,8 @@ public class MyProfileActivity extends BaseActivity implements View.OnTouchListe
     private boolean isProfileDone(){
         boolean result = false;
         if((!mExpertName.getText().toString().trim().equals("")) && (!mPhoneNum.getText().toString().trim().equals("")) &&
+                (!mQq.getText().toString().trim().equalsIgnoreCase("")) &&
+                (!mWeixin.getText().toString().equalsIgnoreCase("")) &&
                 (!mArea.getText().toString().trim().equals("")) && (!mAge.getText().toString().trim().equals("")) &&
                 (!mWorkTime.getText().toString().trim().equals("")) && (!mExpertDes.getText().toString().trim().equals(""))){
             result = true;

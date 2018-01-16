@@ -1,6 +1,7 @@
 package com.cheng.consultexpert.ui.view;
 
 import com.cheng.consultexpert.db.table.Subject;
+import com.cheng.consultexpert.db.table.SubjectListItem;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public interface IMyQuestionListView {
     void showProgress();
 
-    void addData(List<Subject> subjects);
+    void addData(List<SubjectListItem> subjects);
 
     void hideProgress();
 

@@ -31,6 +31,7 @@ public class Urls {
     public static final String USER = "/user";
     public static final String LOGIN = "/userLogin";
     public static final String QUESTION = "/case";
+    public static final String FORUM = "/forum";
     public static final String EXPERT = "/userExpert";
     public static final String LOVEEXPERT = "/expert/gz";
 

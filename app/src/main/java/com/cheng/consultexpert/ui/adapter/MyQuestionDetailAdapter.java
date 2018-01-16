@@ -48,7 +48,7 @@ public class MyQuestionDetailAdapter extends RecyclerView.Adapter {
         }
     }
 
-    /** 重写这个方法，很重要，是加入Header和Footer的关键，我们通过判断item的类型，从而绑定不同的view    * */
+    //判断item的类型，从而绑定不同的view
     @Override
     public int getItemViewType(int position) {
         int count = getItemCount();
@@ -80,7 +80,7 @@ public class MyQuestionDetailAdapter extends RecyclerView.Adapter {
         this.mData = data;
     }
 
-    //创建View，如果是HeaderView或者是FooterView，直接在Holder中返回
+    //如果是HeaderView或者是FooterView，直接在Holder中返回
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(mHeaderView != null && viewType == TYPE_HEADER) {

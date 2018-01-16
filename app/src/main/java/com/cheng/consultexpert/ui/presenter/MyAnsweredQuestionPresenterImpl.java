@@ -1,6 +1,7 @@
 package com.cheng.consultexpert.ui.presenter;
 
 import com.cheng.consultexpert.db.table.Subject;
+import com.cheng.consultexpert.db.table.SubjectListItem;
 import com.cheng.consultexpert.ui.common.Urls;
 import com.cheng.consultexpert.ui.model.MyAnsweredQuestionModel;
 import com.cheng.consultexpert.ui.model.MyAnsweredQuestionModelImpl;
@@ -25,14 +26,14 @@ public class MyAnsweredQuestionPresenterImpl implements MyAnsweredQuestionPresen
 
     @Override
     public void loadMyQuestion(int userId, int QuestionCate, int pageIndex, int ismine, int isAnswered) {
-        String url = Urls.HOST_TEST + Urls.QUESTION;
+        String url = Urls.HOST_TEST + Urls.FORUM;
 
         model.loadMyQuestion(userId, url, pageIndex, Urls.PAZE_SIZE, isAnswered, QuestionCate, ismine, listener);
     }
 
     private OnLoadQuestionListListener listener = new OnLoadQuestionListListener() {
         @Override
-        public void onSuccess(List<Subject> subjects) {
+        public void onSuccess(List<SubjectListItem> subjects) {
             questionListView.addData(subjects);
         }
 

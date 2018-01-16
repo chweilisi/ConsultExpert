@@ -5,11 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cheng.consultexpert.R;
-import com.cheng.consultexpert.db.table.Expert;
 import com.cheng.consultexpert.db.table.Subject;
+import com.cheng.consultexpert.db.table.SubjectListItem;
 
 import java.util.List;
 
@@ -19,20 +20,20 @@ import java.util.List;
 
 public class NeedAnswerQuestionListAdapter extends RecyclerView.Adapter {
     private Context mContext;
-    private List<Subject> mDatas;
+    private List<SubjectListItem> mDatas;
     private onQuestionItemClickListener mItemClickListener;
 
     public NeedAnswerQuestionListAdapter(Context context) {
         mContext = context;
     }
 
-    public void setData(List<Subject> subjects){
+    public void setData(List<SubjectListItem> subjects){
         this.mDatas = subjects;
         this.notifyDataSetChanged();
     }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.expert_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.question_list_item, parent, false);
         ItemViewHolder vh = new ItemViewHolder(view);
         return vh;
     }
@@ -40,13 +41,19 @@ public class NeedAnswerQuestionListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof ItemViewHolder){
-            Subject exp = mDatas.get(position);
-            if(exp == null) return;
+            SubjectListItem item = mDatas.get(position);
+            if(item == null) return;
 
-            ((ItemViewHolder) holder).mTitle.setText(exp.getTitle());
-            ((ItemViewHolder) holder).mDesc.setText(exp.getContent());
-            //((ItemViewHolder) holder).mImg.setImageDrawable(mContext.getDrawable(R.drawable.mypage_concerned_teacher_icon));
-            //ImageLoaderUtils.display(mContext, (((ItemViewHolder) holder).mImg), exp.getImgSrc());
+            String[] good = mContext.getResources().getStringArray(R.array.consult_category);
+            for (int i = 10; i < 23; i++){
+                if(item.getQuestionCateId().trim().equalsIgnoreCase(String.valueOf(i))){
+                    ((ItemViewHolder) holder).mCate.setText(good[i - 10]);
+                    break;
+                }
+            }
+
+            ((ItemViewHolder) holder).mTitle.setText(item.getTitle());
+            ((ItemViewHolder) holder).mtime.setText(item.getAnsweredTime());
         }
 
     }
@@ -59,7 +66,7 @@ public class NeedAnswerQuestionListAdapter extends RecyclerView.Adapter {
         return 0;
     }
 
-    public Subject getQuestionItem(int position){
+    public SubjectListItem getQuestionItem(int position){
         return (null == mDatas) ? null : mDatas.get(position);
     }
 
@@ -72,14 +79,19 @@ public class NeedAnswerQuestionListAdapter extends RecyclerView.Adapter {
     }
 
     private class ItemViewHolder extends RecyclerView.ViewHolder{
-        //public CircularImage mImg;
+        public ImageView mImg;
         public TextView mTitle;
-        public TextView mDesc;
+        public TextView mCate;
+        public TextView mtime;
+        //public TextView mDesc;
         public ItemViewHolder(View itemView) {
             super(itemView);
-            //mImg = (CircularImage)itemView.findViewById(R.id.ivExpert);
-            mTitle = (TextView)itemView.findViewById(R.id.tvTitle);
-            mDesc = (TextView)itemView.findViewById(R.id.tvDesc);
+            mImg = (ImageView)itemView.findViewById(R.id.ivSubject);
+            mCate = (TextView)itemView.findViewById(R.id.question_category);
+            mTitle = (TextView)itemView.findViewById(R.id.question_title);
+            mtime = (TextView)itemView.findViewById(R.id.question_time);
+
+            //mDesc = (TextView)itemView.findViewById(R.id.tvDesc);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

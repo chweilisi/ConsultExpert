@@ -1,27 +1,42 @@
 package com.cheng.consultexpert.ui.model;
 
+import com.cheng.consultexpert.app.App;
 import com.cheng.consultexpert.db.table.Subject;
+import com.cheng.consultexpert.db.table.SubjectListItem;
+import com.cheng.consultexpert.ui.common.PostCommonHead;
+import com.cheng.consultexpert.ui.common.PostResponseBodyJson;
 import com.cheng.consultexpert.utils.OkHttpUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import static com.cheng.consultexpert.app.App.getApplication;
 
 /**
  * Created by cheng on 2017/12/5.
  */
 
 public class MyAnsweredQuestionModelImpl implements MyAnsweredQuestionModel {
+    private PostResponseBodyJson mPostResult;
+
     @Override
     public void loadMyQuestion(int userId, String url, int pageNum, int pageSize, int isAnswered, int cateId, int ismine, final OnLoadQuestionListListener listener) {
         OkHttpUtils.ResultCallback<String> loadMyQuestionCallback = new OkHttpUtils.ResultCallback<String>() {
             @Override
             public void onSuccess(String response) {
                 Gson gson=  new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
-                List<Subject> subjects = gson.fromJson(response, new TypeToken<List<Subject>>() {}.getType());
-                listener.onSuccess(subjects);
+                mPostResult = gson.fromJson(response, PostResponseBodyJson.class);
+                String resultStr = mPostResult.getResultJson();
+                if(null != resultStr && !resultStr.isEmpty()){
+                    List<SubjectListItem> subjects = gson.fromJson(resultStr, new TypeToken<List<SubjectListItem>>() {}.getType());
+                    listener.onSuccess(subjects);
+                }
             }
 
             @Override
@@ -30,29 +45,49 @@ public class MyAnsweredQuestionModelImpl implements MyAnsweredQuestionModel {
             }
         };
 
-        List<OkHttpUtils.Param> params = new ArrayList<>();
-        try {
-            OkHttpUtils.Param expertid = new OkHttpUtils.Param("expertId", String.valueOf(userId));
-            OkHttpUtils.Param userid = new OkHttpUtils.Param("userId", "-1");
-            OkHttpUtils.Param pagenum = new OkHttpUtils.Param("pagenum", Integer.toString(pageNum));
-            OkHttpUtils.Param pagesize = new OkHttpUtils.Param("pagesize", Integer.toString(pageSize));
-            OkHttpUtils.Param answered = new OkHttpUtils.Param("isAnswered", String.valueOf(isAnswered));
-            OkHttpUtils.Param cateid = new OkHttpUtils.Param("cateId", String.valueOf(cateId));
-            OkHttpUtils.Param ismy = new OkHttpUtils.Param("isMine", String.valueOf(ismine));
-            OkHttpUtils.Param mothed = new OkHttpUtils.Param("method","list");
+        //json格式post参数
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateStr = dateFormat.format(date).toString();
 
-            params.add(expertid);
-            params.add(userid);
-            params.add(pagenum);
-            params.add(pagesize);
-            params.add(answered);
-            params.add(cateid);
-            params.add(ismy);
-            params.add(mothed);
-        } catch (Exception e) {
-            e.printStackTrace();
+        PostCommonHead.HEAD postHead = new PostCommonHead.HEAD("1", "subjectList", ((App) getApplication()).mAppSignature, dateStr, "9000");
+        QuestionListPostParam param = new QuestionListPostParam(postHead, String.valueOf(userId), "-1", "200", Integer.toString(cateId),
+                String.valueOf(ismine), Integer.toString(pageNum), Integer.toString(pageSize), String.valueOf(isAnswered));
+
+        String strParam = new Gson().toJson(param);
+        OkHttpUtils.postJson(url, loadMyQuestionCallback, strParam);
+    }
+
+    class QuestionListPostParam{
+        private PostCommonHead.HEAD head;
+        private PostBody body;
+
+        public QuestionListPostParam(PostCommonHead.HEAD head,
+                                     String userId, String expertId, String userType, String cateId, String isMine, String pageNum, String pageSize, String isAnswered) {
+            this.head = head;
+            this.body = new PostBody(userId, expertId, userType, cateId, isMine, pageNum, pageSize, isAnswered);
         }
 
-        OkHttpUtils.post(url, loadMyQuestionCallback, params);
+        class PostBody{
+            private String userId;
+            private String expertId;//
+            private String userType;
+            private String cateId;
+            private String isMine;//
+            private String pageNum;
+            private String pageSize;
+            private String isAnswered;
+
+            public PostBody(String userId, String expertId, String userType, String cateId, String isMine, String pageNum, String pageSize, String isAnswered) {
+                this.userId = userId;
+                this.expertId = expertId;
+                this.userType = userType;
+                this.cateId = cateId;
+                this.isMine = isMine;
+                this.pageNum = pageNum;
+                this.pageSize = pageSize;
+                this.isAnswered = isAnswered;
+            }
+        }
     }
 }

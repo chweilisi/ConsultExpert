@@ -1,6 +1,7 @@
 package com.cheng.consultexpert.ui.presenter;
 
 import com.cheng.consultexpert.db.table.Subject;
+import com.cheng.consultexpert.db.table.SubjectListItem;
 import com.cheng.consultexpert.ui.common.Urls;
 import com.cheng.consultexpert.ui.model.QuestionModel;
 import com.cheng.consultexpert.ui.model.QuestionModelImpl;
@@ -40,7 +41,7 @@ public class QuestionListPresenterImpl implements QuestionListPresenter {
 
     OnLoadQuestionListListener loadQuestionListener = new OnLoadQuestionListListener(){
         @Override
-        public void onSuccess(List<Subject> list) {
+        public void onSuccess(List<SubjectListItem> list) {
             mIQuestionView.hideProgress();
             mIQuestionView.addQuestions(list);
         }
@@ -56,9 +57,9 @@ public class QuestionListPresenterImpl implements QuestionListPresenter {
     private String getUrl(int questionCate){
         String result = "";
         if(-1 == questionCate){
-            result = Urls.HOST_TEST + Urls.QUESTION;
+            result = Urls.HOST_TEST + Urls.FORUM;
         }else {
-            result = Urls.HOST_TEST + Urls.QUESTION;
+            result = Urls.HOST_TEST + Urls.FORUM;
         }
         return result;
     }

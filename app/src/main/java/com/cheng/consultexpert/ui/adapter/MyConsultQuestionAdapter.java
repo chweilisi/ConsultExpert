@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.cheng.consultexpert.R;
 import com.cheng.consultexpert.db.table.Subject;
 import com.cheng.consultexpert.db.table.SubjectItem;
+import com.cheng.consultexpert.db.table.SubjectListItem;
 
 import java.util.List;
 
@@ -21,14 +22,14 @@ import java.util.List;
 public class MyConsultQuestionAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
-    private List<Subject> mDatas;
+    private List<SubjectListItem> mDatas;
 
     public MyConsultQuestionAdapter(Context context){
         this.mContext = context;
     }
     private onQuestionListItemClickListener mItemClickListener;
 
-    public void setData(List<Subject> experts){
+    public void setData(List<SubjectListItem> experts){
         this.mDatas = experts;
         this.notifyDataSetChanged();
     }
@@ -42,17 +43,19 @@ public class MyConsultQuestionAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof ItemViewHolder){
-            Subject item = mDatas.get(position);
+            SubjectListItem item = mDatas.get(position);
             if(item == null) return;
 
-            //TODO exactlly data is not thi
-            List<SubjectItem> subItem = item.getItems();
+            String[] good = mContext.getResources().getStringArray(R.array.consult_category);
+            for (int i = 10; i < 23; i++){
+                if(item.getQuestionCateId().trim().equalsIgnoreCase(String.valueOf(i))){
+                    ((ItemViewHolder) holder).mCate.setText(good[i - 10]);
+                    break;
+                }
+            }
 
-            //(((ItemViewHolder) holder).mImg).setBackgroundResource(R.drawable.icon_category_6);
-            ((ItemViewHolder) holder).mDesc.setText(item.getTitle());
-
-            //((ItemViewHolder) holder).mDesc.setText(item.getItems().get(position).getContent());
-            //ImageLoaderUtils.display(mContext, (((ItemViewHolder) holder).mImg), item.getIconSrc());
+            ((ItemViewHolder) holder).mTitle.setText(item.getTitle());
+            ((ItemViewHolder) holder).mtime.setText(item.getAnsweredTime());
         }
 
     }
@@ -65,7 +68,7 @@ public class MyConsultQuestionAdapter extends RecyclerView.Adapter {
         return 0;
     }
 
-    public Subject getExpItem(int position){
+    public SubjectListItem getExpItem(int position){
         return (null == mDatas) ? null : mDatas.get(position);
     }
 
@@ -79,12 +82,18 @@ public class MyConsultQuestionAdapter extends RecyclerView.Adapter {
 
     private class ItemViewHolder extends RecyclerView.ViewHolder{
         public ImageView mImg;
-        //public TextView mTitle;
-        public TextView mDesc;
+        public TextView mTitle;
+        public TextView mCate;
+        public TextView mtime;
+        //public TextView mDesc;
         public ItemViewHolder(View itemView) {
             super(itemView);
             mImg = (ImageView)itemView.findViewById(R.id.ivSubject);
-            mDesc = (TextView)itemView.findViewById(R.id.tvDesc);
+            mCate = (TextView)itemView.findViewById(R.id.question_category);
+            mTitle = (TextView)itemView.findViewById(R.id.question_title);
+            mtime = (TextView)itemView.findViewById(R.id.question_time);
+
+            //mDesc = (TextView)itemView.findViewById(R.id.tvDesc);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

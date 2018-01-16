@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
-        android:name="com.cheng.consultexpert.app.App"
+        android:name=".app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -22,7 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme2">
         <activity
-            android:name="com.cheng.consultexpert.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name">
 
             <!-- <intent-filter> -->
@@ -32,22 +32,22 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name="com.cheng.consultexpert.ui.view.SearchActivity" />
+        <activity android:name=".ui.view.SearchActivity" />
         <activity
-            android:name="com.cheng.consultexpert.ui.view.QuestionListActivity"
+            android:name=".ui.view.QuestionListActivity"
             android:label="@string/title_activity_expert_list"
             android:theme="@style/AppTheme2" />
         <activity
-            android:name="com.cheng.consultexpert.ui.view.QuestionDetailActivity"
+            android:name=".ui.view.QuestionDetailActivity"
             android:label="@string/title_activity_expert_detail"
             android:theme="@style/AppTheme2" />
         <activity
-            android:name="com.cheng.consultexpert.ui.view.AnswerQuestionActivity"
+            android:name=".ui.view.AnswerQuestionActivity"
             android:label="@string/title_activity_ask_expert"
             android:theme="@style/AppTheme2" />
-        <activity android:name="com.cheng.consultexpert.ui.view.MyNeedAnswerQuestionListActivity" />
-        <activity android:name="com.cheng.consultexpert.ui.view.MyAnsweredQuestionActivity" />
-        <activity android:name="com.cheng.consultexpert.ui.view.LoginActivity">
+        <activity android:name=".ui.view.MyNeedAnswerQuestionListActivity" />
+        <activity android:name=".ui.view.MyAnsweredQuestionActivity" />
+        <activity android:name=".ui.view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -58,16 +58,15 @@
         <!-- android:name=".ui.view.BaseActivity" -->
         <!-- android:label="@string/title_activity_base" -->
         <!-- android:theme="@style/AppTheme2" /> -->
-        <activity android:name="com.cheng.consultexpert.ui.view.MyQuestionDetailActivity" />
+        <activity android:name=".ui.view.MyQuestionDetailActivity" />
         <activity
-            android:name="com.cheng.consultexpert.ui.view.QuestionCategoryActivity"
+            android:name=".ui.view.QuestionCategoryActivity"
             android:label="@string/title_activity_expert_category"
             android:theme="@style/AppTheme2" />
-        <activity
-            android:name="com.cheng.consultexpert.ui.view.MyProfileActivity">
-
-        </activity>
-        <activity android:name=".ui.view.RegistActivity"></activity>
+        <activity android:name=".ui.view.MyProfileActivity" />
+        <activity android:name=".ui.view.RegistActivity" />
+        <activity android:name=".ui.view.AnswerItemDetailActivity" />
+        <activity android:name=".ui.view.AnswerQuestionAgainActivity"></activity>
     </application>
 
 </manifest>

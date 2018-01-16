@@ -232,6 +232,9 @@ public class MultiSpinner extends TextView implements View.OnClickListener,Dialo
                 return;
             }
             SimpleSpinnerOption op = (SimpleSpinnerOption)getItem(position);
+//            int nn = Integer.parseInt(String.valueOf(op.getValue()));
+//            nn += 10;
+//            Object n = new Integer(nn);
             Object n = op.getValue();
             boolean isChecked = checkBox.isChecked();
             if(isChecked){

@@ -94,7 +94,7 @@ public class InfoFragment extends Fragment {
                 OkHttpUtils.ResultCallback<String> myProfileResultCallback = new OkHttpUtils.ResultCallback<String>() {
                     @Override
                     public void onSuccess(String response) {
-                        if(!response.isEmpty() && null != response){
+                        if(null != response && !response.isEmpty()){
                             Gson gson=  new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
                             PostResponseBodyJson result = gson.fromJson(response, PostResponseBodyJson.class);
                             if(null != result){

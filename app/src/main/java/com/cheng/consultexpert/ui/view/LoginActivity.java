@@ -52,7 +52,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void initViews(Bundle savedInstanceState) {
         pre = PreUtils.getInstance(mContext);
-        pre.clearUserInfo();
+        //pre.clearUserInfo();
         if(1 == pre.getUserIsLogin()){
             strUserName = pre.getUserLoginName();
             strPassword = pre.getUserLoginPsw();
@@ -179,28 +179,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 Toast.makeText(mContext, getResources().getText(R.string.login_hint_net_error), Toast.LENGTH_LONG).show();
             }
         };
-        //Map<String, Object> params1 = new HashMap<String, Object>();
-//        List<OkHttpUtils.Param> params = new ArrayList<>();
-//        try {
-//
-//            //params1.put("username", URLEncoder.encode(strUserName, "UTF-8"));
-//            //params1.put("password", URLEncoder.encode(strPassword, "UTF-8"));
-//            //params1.put("format", "json");
-//
-//            OkHttpUtils.Param userName = new OkHttpUtils.Param("username", URLEncoder.encode(strUserName, "UTF-8"));
-//            OkHttpUtils.Param passWord = new OkHttpUtils.Param("password", URLEncoder.encode(strPassword, "UTF-8"));
-//            OkHttpUtils.Param mothed = new OkHttpUtils.Param("method","login");
-//            //OkHttpUtils.Param id = new OkHttpUtils.Param("id","");
-//
-//            params.add(userName);
-//            params.add(passWord);
-//            params.add(mothed);
-//            //params.add(id);
-//
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-        //OkHttpUtils.post(Urls.HOST_TEST + Urls.USER, loginCallback, params);
 
         //json格式post参数
         Date date = new Date();

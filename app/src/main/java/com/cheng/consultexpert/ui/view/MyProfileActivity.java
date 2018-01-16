@@ -1,5 +1,6 @@
 package com.cheng.consultexpert.ui.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -21,7 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cheng.consultexpert.R;
+import com.cheng.consultexpert.ui.common.Constants;
 import com.cheng.consultexpert.ui.common.PostCommonHead;
+import com.cheng.consultexpert.ui.common.PostResponseBodyJson;
 import com.cheng.consultexpert.ui.common.Urls;
 import com.cheng.consultexpert.utils.OkHttpUtils;
 import com.cheng.consultexpert.utils.PreUtils;
@@ -126,18 +129,47 @@ public class MyProfileActivity extends BaseActivity implements View.OnTouchListe
                         Toast toast = Toast.makeText(mContext, mContext.getResources().getText(R.string.my_profile_error_toast), Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
-                    } else {
+                    }else if(-1 != mApplication.mUserId){
+                        Toast toast = Toast.makeText(mContext, mContext.getResources().getText(R.string.my_profile_no_submit_toast), Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                    }
+                    else {
                         //addParams();
                         saveUserProfile();
                         OkHttpUtils.ResultCallback<String> submitProfileCallback = new OkHttpUtils.ResultCallback<String>() {
                             @Override
                             public void onSuccess(String response) {
-
+                                if(null != response && !response.isEmpty()){
+                                    Gson gson=  new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
+                                    PostResponseBodyJson result = gson.fromJson(response, PostResponseBodyJson.class);
+                                    if(null != result){
+                                        boolean issuccessed = result.getResultCode().equalsIgnoreCase(Constants.LOGIN_OR_POST_SUCCESS);
+                                        if(issuccessed){
+                                            MyProfileBean profileBean = gson.fromJson(result.getResultJson(), MyProfileBean.class);
+                                            //set userid to App, so, other activity can user it
+                                            if(!profileBean.getUserId().trim().isEmpty() && !profileBean.getUserId().trim().equalsIgnoreCase("-1")){
+                                                mApplication.mUserId = Integer.parseInt(profileBean.getUserId());
+                                                mPreUtils.setUserId(Long.parseLong(profileBean.getUserId()));
+                                            }
+                                        }else if (result.getResultCode().trim().equalsIgnoreCase(Constants.SYSTEM_ERROR_PROGRAM)){
+                                            Toast toast = Toast.makeText(mContext, "ErrorCode = "+ result.getResultCode() + " "
+                                                    + getResources().getString(R.string.profile_hint_getProfile_app_error) + " " + result.getResultMess(), Toast.LENGTH_SHORT);
+                                            toast.setGravity(Gravity.CENTER, 0, 0);
+                                            toast.show();
+                                        }else if (result.getResultCode().trim().equalsIgnoreCase(Constants.SYSTEM_ERROR_SERVER)){
+                                            Toast toast = Toast.makeText(mContext, "ErrorCode = "+ result.getResultCode() + " "
+                                                    + getResources().getString(R.string.profile_hint_getProfile_server_error) + " " + result.getResultMess(), Toast.LENGTH_SHORT);
+                                            toast.setGravity(Gravity.CENTER, 0, 0);
+                                            toast.show();
+                                        }
+                                    }
+                                }
                             }
 
                             @Override
                             public void onFailure(Exception e) {
-
+                                Toast.makeText(mContext, getResources().getText(R.string.my_profile_submit_net_err_toast), Toast.LENGTH_LONG).show();
                             }
                         };
 
@@ -279,7 +311,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnTouchListe
         for(int i = 0; i < mMyGoodat.size(); i++){
             SimpleSpinnerOption option=new SimpleSpinnerOption();
             option.setName(mMyGoodat.get(i));
-            option.setValue(i);
+            option.setValue(i + 10);
             multiSpinnerList.add(option);
         }
         mMyGoodatSpinner.setDataList(multiSpinnerList);
@@ -294,23 +326,6 @@ public class MyProfileActivity extends BaseActivity implements View.OnTouchListe
 
 
     }
-
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        //user profile
-//        mExpertName.setText(mPreUtils.getUserName());
-//        mPhoneNum.setText(mPreUtils.getUserPhone());
-//        mAge.setText(mPreUtils.getUserAge());
-//        mArea.setText(mPreUtils.getUserArea());
-//        //good at
-//        String strGood = mPreUtils.getUserGoodat();
-//        restoreGoodat(strGood);
-//        mWorkTime.setText(mPreUtils.getUserWorkTime());
-//        mExpertDes.setText(mPreUtils.getUserDes());
-//
-//
-//    }
 
     //TODO: restore spinner state
     private void restoreGoodat(String strGood){

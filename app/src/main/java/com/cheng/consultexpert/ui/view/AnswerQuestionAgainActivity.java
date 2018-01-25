@@ -1,13 +1,27 @@
 package com.cheng.consultexpert.ui.view;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.cheng.consultexpert.R;
@@ -15,20 +29,36 @@ import com.cheng.consultexpert.ui.common.Constants;
 import com.cheng.consultexpert.ui.common.PostCommonHead;
 import com.cheng.consultexpert.ui.common.PostResponseBodyJson;
 import com.cheng.consultexpert.ui.common.Urls;
+import com.cheng.consultexpert.utils.FileUtils;
 import com.cheng.consultexpert.utils.OkHttpUtils;
+import com.cheng.consultexpert.utils.PhotoUtils;
+import com.cheng.consultexpert.utils.ToastUtils;
+import com.cheng.consultexpert.utils.ToolsUtils;
+import com.cheng.consultexpert.widget.BaseDialogue;
+import com.cheng.consultexpert.widget.CommonImageLoader;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
-public class AnswerQuestionAgainActivity extends BaseActivity {
+public class AnswerQuestionAgainActivity extends BaseActivity implements AdapterView.OnItemClickListener {
     private EditText mQuestionDes;
     private Button mSubmit;
     private String qDes;
     private int mExpertId;
     private Long mSubjectId;
+    private ImageButton mBtnAttachment;
+    protected BaseDialogue mBaseDialog;
+    private Uri imageUri;
+    private File mTakedPhoto = null;
+    private Gson gson;
 
     @Override
     protected int getContentViewLayoutId() {
@@ -37,10 +67,23 @@ public class AnswerQuestionAgainActivity extends BaseActivity {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
+        mBaseDialog = new BaseDialogue(mContext);
+
         mExpertId = getIntent().getIntExtra("expertid", -1);
         mSubjectId = getIntent().getLongExtra("subjectid", -1);
 
         mQuestionDes = (EditText)findViewById(R.id.question_des);
+        mBtnAttachment = (ImageButton)findViewById(R.id.btn_answer_question_attach);
+        mSubmit = (Button)findViewById(R.id.submit);
+
+        mBtnAttachment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPictureFrom();
+            }
+        });
+
         mQuestionDes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,12 +93,6 @@ public class AnswerQuestionAgainActivity extends BaseActivity {
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
             }
         });
-
-        mSubmit = (Button)findViewById(R.id.submit);
-
-
-
-        final Gson gson=  new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,9 +131,17 @@ public class AnswerQuestionAgainActivity extends BaseActivity {
                     QuestionSubmitParam postParam = new QuestionSubmitParam(postHead,
                             String.valueOf(mApplication.mUserId), String.valueOf(mSubjectId), "1", qDes, "0", "20");
 
+                    HashMap<String, Object> paramsMap = new HashMap<>();
                     String param = gson.toJson(postParam);
-                    String url = Urls.HOST_TEST + Urls.FORUM;
-                    OkHttpUtils.postJson(url, submitQuestionCallback, param);
+                    paramsMap.put("file", mTakedPhoto);
+                    paramsMap.put("json", param);
+
+                    String url = Urls.HOST_TEST + Urls.UPLOAD;
+                    OkHttpUtils.uploadFile(url, submitQuestionCallback, paramsMap);
+
+//                    String param = gson.toJson(postParam);
+//                    String url = Urls.HOST_TEST + Urls.FORUM;
+//                    OkHttpUtils.postJson(url, submitQuestionCallback, param);
                     finish();
                 }
             }
@@ -131,5 +176,110 @@ public class AnswerQuestionAgainActivity extends BaseActivity {
                 this.pageSize = pageSize;
             }
         }
+    }
+
+    private List<String> mStringList;
+    private void showPictureFrom() {
+        ListView view = (ListView) getLayoutInflater().inflate(R.layout.file_chooser_layout, null);
+        if (mStringList == null) {
+            mStringList = new ArrayList<>();
+            mStringList.add("拍照");
+            mStringList.add("从手机上取");
+        }
+
+        view.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_list_item_1, mStringList));
+        view.setOnItemClickListener(this);
+        mBaseDialog.setDialogContentView(view).setTitle("上传").setBottomLayoutVisible(false).show();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        mBaseDialog.dismiss();
+        if (position == 0) {
+            mTakedPhoto = CommonImageLoader.getInstance().createPhotoFile();
+            DynamicObtainCameraPermissionAndTakePicture();
+        } else {
+            startPickPhoto();
+        }
+    }
+
+    private void DynamicObtainCameraPermissionAndTakePicture() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+                    || ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                    ToastUtils.showShort(mContext, "您已经拒绝过一次");
+                }
+                requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, Constants.REQUEST_CODE_TAKE_PICTURE);
+            } else {//有权限直接调用系统相机拍照
+                if (FileUtils.isExistSDCard()) {
+                    imageUri = Uri.fromFile(mTakedPhoto);
+                    //通过FileProvider创建一个content类型的Uri
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        imageUri = FileProvider.getUriForFile(mContext, "com.cheng.consultexpert.fileprovider", mTakedPhoto);
+                    }
+                    PhotoUtils.takePicture(this, imageUri, Constants.REQUEST_CODE_TAKE_PICTURE);
+                } else {
+                    ToastUtils.showShort(mContext, "设备没有SD卡！");
+                }
+            }
+        }
+    }
+
+    private void startPickPhoto(){
+        Intent intent = new Intent();
+        if (Build.VERSION.SDK_INT < 19) {
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+        } else {
+            intent.setAction(Intent.ACTION_PICK);
+            intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        }
+        startActivityForResult(intent, Constants.REQUEST_CODE_SELECT_FROM_LOCAL);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case Constants.REQUEST_CODE_TAKE_PICTURE:
+            {
+                if (resultCode == RESULT_OK) {
+                    if (data != null) {
+                        if (data.hasExtra("data")) {
+                            Bitmap bitmap = data.getParcelableExtra("data");
+                        }
+                    } else {
+                        if (Build.VERSION.SDK_INT >= 24){
+                            if(mTakedPhoto.exists()){
+
+                            }
+
+                        }else {
+                        }
+                    }
+                }
+                break;
+            }
+            case Constants.REQUEST_CODE_SELECT_FROM_LOCAL:
+            {
+                if (resultCode == RESULT_OK) {
+                    Uri uri = data.getData();
+                    String path = null;
+                    try {
+                        path = ToolsUtils.getPath(mContext, uri);
+                        mTakedPhoto = new File(path);
+                        if(mTakedPhoto.exists()){
+
+                        }
+
+                    } catch (URISyntaxException e) {
+
+                    }
+                }
+                break;
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

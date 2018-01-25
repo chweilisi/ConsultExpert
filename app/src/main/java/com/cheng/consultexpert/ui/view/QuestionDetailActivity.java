@@ -254,7 +254,9 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
             {
                 Intent intent = new Intent(mContext, AnswerItemDetailActivity.class);
                 String questionDes = mSubject.getContent();
+                String filePath = mSubject.getFilePath();
                 intent.putExtra("question_description", questionDes);
+                intent.putExtra("file_path", filePath);
                 startActivity(intent);
                 break;
             }

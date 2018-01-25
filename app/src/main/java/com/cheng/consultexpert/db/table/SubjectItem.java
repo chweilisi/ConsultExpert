@@ -17,8 +17,7 @@ public class SubjectItem implements Serializable {
 
     //@Convert(columnType = String.class, converter = StringConvertListUtils.class)
     private String Content;//问题
-    //@Convert(columnType = String.class, converter = StringConvertListUtils.class)
-    //private List<String> Answers;//回答
+    private String filePath = null;
 
     public Long getSubjectItemId() {
         return SubjectItemId;
@@ -58,5 +57,13 @@ public class SubjectItem implements Serializable {
 
     public void setContent(String content) {
         Content = content;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }

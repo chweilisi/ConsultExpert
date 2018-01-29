@@ -1,10 +1,13 @@
 package com.cheng.consultexpert.ui.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +15,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.cheng.consultexpert.R;
+import com.cheng.consultexpert.app.App;
+import com.cheng.consultexpert.ui.common.Constants;
 import com.cheng.consultexpert.ui.view.MyNeedAnswerQuestionListActivity;
 import com.cheng.consultexpert.ui.view.QuestionCategoryActivity;
+
+import static com.cheng.consultexpert.app.App.getApplication;
 
 /**
  * Created by cheng on 2017/11/13.
@@ -46,6 +53,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 //        mQuickAskBtn = (Button)view.findViewById(R.id.expert_detail_ask_button);
 //        mQuickAskBtn.setOnClickListener(this);
 
+        if (ContextCompat.checkSelfPermission(getApplication(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(getApplication(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, Constants.REQUEST_CODE_TAKE_PICTURE);
+        }
 
         return view;
     }
